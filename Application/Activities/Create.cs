@@ -9,7 +9,7 @@ namespace Application.Activities
 {
     public class Create
     {
-        public class Command:Activity,IRequest
+        public class CommandCr:Activity,IRequest
         {
             /* public Guid Id { get; set; }
             public string Title { get; set; }
@@ -19,7 +19,7 @@ namespace Application.Activities
             public string City { get; set; }
             public string Venue  { get; set; }*/
         }
-        public class Handler : IRequestHandler<Command>
+        public class Handler : IRequestHandler<CommandCr>
         {
             private readonly DataContext _context;
 
@@ -28,7 +28,7 @@ namespace Application.Activities
                 _context = context;
             }
 
-            public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
+            public async Task<Unit> Handle(CommandCr request, CancellationToken cancellationToken)
             {
                 var activity=new Activity
                 {
