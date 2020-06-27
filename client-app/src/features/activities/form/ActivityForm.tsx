@@ -9,13 +9,15 @@ interface IProps {
   activity: IActivity;
   createActivity: (activity: IActivity) => void;
   editActivity: (activity: IActivity) => void;
+  submitting: boolean;
 }
 
 export const ActivityForm: React.FC<IProps> = ({
   setEditMode,
   activity: initializeFormState,
   createActivity,
-  editActivity
+  editActivity,
+  submitting,
 }) => {
   const initializeForm = () => {
     if (initializeFormState) {
@@ -28,7 +30,7 @@ export const ActivityForm: React.FC<IProps> = ({
         description: "",
         date: "",
         city: "",
-        venue: ""
+        venue: "",
       };
     }
   };
@@ -38,7 +40,7 @@ export const ActivityForm: React.FC<IProps> = ({
     if (activity.id.length === 0) {
       let newActivity = {
         ...activity,
-        id: uuid()
+        id: uuid(),
       };
       createActivity(newActivity);
     } else {
@@ -78,6 +80,7 @@ export const ActivityForm: React.FC<IProps> = ({
           onChange={handleInputChange}
           name="date"
           type="datetime-local"
+          ampm="false"
           placeholder="Date"
           value={activity.date}
         />
@@ -93,7 +96,13 @@ export const ActivityForm: React.FC<IProps> = ({
           placeholder="Venue"
           value={activity.venue}
         />
-        <Button positive floated="right" type="submit" content="Submit" />
+        <Button
+          loading={submitting}
+          positive
+          floated="right"
+          type="submit"
+          content="Submit"
+        />
         <Button
           onClick={() => {
             setEditMode(false);
